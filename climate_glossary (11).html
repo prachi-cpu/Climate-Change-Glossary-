@@ -1,0 +1,1311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate Change Glossary | 220 Terms</title>
+    <meta name="description" content="Interactive glossary of climate change terms and definitions">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #34495e;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .glossary-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .header img {
+            height: 80px;
+            width: auto;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .header-text {
+            flex: 1;
+        }
+        
+        .header h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .controls {
+            padding: 20px;
+            background-color: var(--light-color);
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        #search-box {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        #search-box:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+        
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .filter-btn {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .filter-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .random-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .random-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .letter-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .letter-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: bold;
+        }
+        
+        .letter-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .letter-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        #terms-container {
+            padding: 20px;
+        }
+        
+        .term-card {
+            background-color: white;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .term-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .term-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .term-definition {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .stats {
+            text-align: right;
+            padding: 10px 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .category-tag {
+            display: inline-block;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header img {
+                margin-bottom: 15px;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glossary-container">
+        <div class="header">
+            <img src="data:image/png;base64,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" alt="DESTA Logo">
+            <div class="header-text">
+                <h1>Climate Change Glossary</h1>
+                <p>Interactive reference for 220 key climate science terms and concepts</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-box" placeholder="Search terms or definitions...">
+            </div>
+            
+            <div class="filter-controls">
+                <div class="letter-filter" id="letter-filter"></div>
+                <div style="flex-grow: 1"></div>
+                <button class="random-btn" id="random-btn">
+                    <span>🎲</span> Random Term
+                </button>
+            </div>
+        </div>
+        
+        <div id="terms-container"></div>
+        
+        <div class="stats" id="stats">
+            Showing 220 of 220 terms
+        </div>
+    </div>
+
+    <script>
+        // Glossary data
+        const glossary = [
+  {
+    "Term": "Abrupt Climate Change",
+    "Definition": "A large-scale change in the climate system that takes place over a few decades or less, persists (or is anticipated to persist) for at least a few decades and causes substantial disruptions in human and natural systems.  AR5 WG1"
+  },
+  {
+    "Term": "Adaptation",
+    "Definition": "The process of adjustment to actual or expected climate and its effects. In human systems, adaptation seeks to moderate or avoid harm or exploit beneficial opportunities. In some natural systems, human intervention may facilitate adjustment to expected climate and its effects. a) Incremental Adaptation:\u00a0Adaptation actions where the central aim is to maintain the essence and integrity of a system or process at a given scale. b)\u00a0Transformational Adaptation: Adaptation that changes the fundamental attributes of a system in response to climate change and its effects.  AR5 WG2"
+  },
+  {
+    "Term": "Adaptation Assessment",
+    "Definition": "The practice of identifying options to adapt to climate change and evaluating them in terms of criteria such as availability, ben\u00ad efits,costs, effectiveness, efficiency, and feasibility.  AR5 WG2"
+  },
+  {
+    "Term": "Adaptation Constraint",
+    "Definition": "Factors that make it harder to plan and implement adaptation actions or that restrict options  AR5 WG2"
+  },
+  {
+    "Term": "Adaptation Deficit",
+    "Definition": "The gap between the current state of a system and a state that minimizes adverse impacts from existing climate conditions and variability.  AR5 WG2"
+  },
+  {
+    "Term": "Adaptation Limit",
+    "Definition": "The point at which an actor\u2019s objectives (or system needs) cannot be secured from intolerable risks through adaptive actions. a) Hard adaptation limit: No adaptive actions are possible to avoid intolerable risks. b) Soft adaptation limit: Options are currently not available to avoid intolerable risks through adaptive action.  AR5 WG2"
+  },
+  {
+    "Term": "Adaptation Needs",
+    "Definition": "The circumstances requiring action to ensure safety of populations and security of assets in response to climate impacts.  AR5 WG2"
+  },
+  {
+    "Term": "Adaptive Capacity",
+    "Definition": "The ability of systems, institutions, humans, and other organisms to adjust to potential damage, to take advantage of opportuni\u00ad ties, or to respond to consequences.  AR5 WG2"
+  },
+  {
+    "Term": "Adaptive Governance",
+    "Definition": "An emerging term in literature for the evolution of formal and informal institutions of governance that prioritize social learning in planning, implementation and evaluation of policy through iterative social learning to steer the use and protection of natural resources, ecosystem services and common pool natural resources, particularly in situations of complexity and uncertainty.  SR1.5"
+  },
+  {
+    "Term": "Aerosol",
+    "Definition": "A suspension of airborne solid or liquid particles, with a typical size between a few nanometres and 10 \u03bcm that reside in the atmosphere for at least several hours. The term aerosol, which includes both the particles and the suspending gas, is often A A A  used in this report in its plural form to mean aerosol particles. Aerosols may be of either natural or anthropogenic origin. Aerosols may influence climate in several ways: through both interactions that scatter and/or absorb radiation and through interactions with cloud microphysics and other cloud properties, or upon deposition on snow- or ice-covered surfaces thereby altering their albedo and contributing to climate feedback.  SR1.5"
+  },
+  {
+    "Term": "Afforestation",
+    "Definition": "The establishment of a forest or stand of trees in an area where there was no previous tree cover."
+  },
+  {
+    "Term": "Air Pollution",
+    "Definition": "Degradation of air quality with negative effects on human health or the natural or built environment due to the introduction, by natural processes or human activity, into the atmosphere of substances (gases, aerosols) which have a direct (primary pollutants) or indirect (secondary pollutants) harmful effect.  SR1.5"
+  },
+  {
+    "Term": "Albedo",
+    "Definition": "The fraction of solar radiation reflected by a surface or object, often expressed as a percentage. Snow-covered surfaces have a high albedo, the albedo of soils ranges from high to low and vegetation-covered surfaces and oceans have a low albedo. The Earth\u2019s planetary albedo varies mainly through varying cloudiness, snow, ice, leaf area and land cover changes.  AR5 SYR"
+  },
+  {
+    "Term": "Albedo",
+    "Definition": "The fraction of solar energy (shortwave radiation) reflected from the Earth back into space, influencing the planet's temperature."
+  },
+  {
+    "Term": "Alternative energy",
+    "Definition": "Energy derived from nontraditional sources (e.g., compressed natural gas, solar, hydroelectric, wind)."
+  },
+  {
+    "Term": "Antarctic \u201cOzone Hole\u201d",
+    "Definition": "Refers to the seasonal depletion of stratospheric ozone in a large area over Antarctica."
+  },
+  {
+    "Term": "Anthropocene",
+    "Definition": "The \u2018Anthropocene\u2019 is a proposed new geological epoch resulting from significant human-driven changes to the structure and functioning of the Earth System, including the climate system. Originally proposed in the Earth System science community in 2000, the proposed new epoch is undergoing a formalization process within the geological community based on the stratigraphic evidence that human activities have changed the Earth System to the extent of forming geological deposits with a signature that is distinct from those of the Holocene, and which will remain in the geological record.  SR1.5"
+  },
+  {
+    "Term": "Anthropogenic",
+    "Definition": "Human made. In the context of greenhouse gases, emissions that are produced as the result of human activities."
+  },
+  {
+    "Term": "Anthropogenic Emissions",
+    "Definition": "Emissions of greenhouse gases, greenhouse gas precursors, and aerosols caused by human activities. These activities include the burning of fossil fuels, deforestation, land use changes, livestock production, fertilization, waste management, and industrial processes.  AR5 WG2"
+  },
+  {
+    "Term": "Anthropogenic\u00a0Removals",
+    "Definition": "Anthropogenic removals refer to the withdrawal of GHGs from the atmosphere as a result of deliberate human activities. These include enhancing biological sinks of CO2 and using chemical engineering to achieve long-term removal and storage. Carbon capture and storage (CCS) from industrial and energy-related sources, which alone does not remove CO2 in the atmosphere, can reduce atmospheric CO2 if it is combined with bioenergy production (BECCS).  SR1.5 A A"
+  },
+  {
+    "Term": "Atmosphere",
+    "Definition": "The mixture of gases surrounding the Earth. The Earth's atmosphere consists of about 79.1 percent nitrogen (by volume), 20.9 percent oxygen, 0.036 percent carbon dioxide and trace amounts of other gases."
+  },
+  {
+    "Term": "Atmosphere layers",
+    "Definition": "The atmosphere can be divided into a number of layers according to its mixing or chemical characteristics, generally determined by its thermal properties (temperature). The layer nearest the Earth is the troposphere, which reaches up to an altitude of about 8 kilometers (about 5 miles) in the polar regions and up to 17 kilometers (nearly 11 miles) above the equator. The stratosphere, which reaches to an altitude of about 50 kilometers (31 miles) lies atop the troposphere. The mesosphere, which extends from 80 to 90 kilometers atop the stratosphere, and finally, the thermosphere, or ionosphere, gradually diminishes and forms a fuzzy border with outer space. There is relatively little mixing of gases between layers."
+  },
+  {
+    "Term": "Baseline Scenario",
+    "Definition": "A reference scenario that reflects the future state of society and the environment in the absence of new climate policies or measures. (IPCC, EPA)"
+  },
+  {
+    "Term": "Baseline/Reference",
+    "Definition": "The baseline (or reference) is the state against which change is measured. A baseline period is the period relative to which anomalies are computed. The baseline concentration of a trace gas is that measured at a location not influenced by local anthropogenic emissions.  AR5 WG1"
+  },
+  {
+    "Term": "Benefits",
+    "Definition": "Externalities arise from a human activity when agents responsible for the activity do not take full account of the activity\u2019s impacts on others\u2019 production and consumption possibilities, and no compensation exists for such impacts. When the impacts are negative, they are external costs. When the impacts are positive, they are external benefits.  AR5 WG2"
+  },
+  {
+    "Term": "Biodiversity",
+    "Definition": "The variability among living organisms from terrestrial, marine and other ecosystems. Biodiversity includes variability at the ge\u00ad netic, species and ecosystem levels  AR5 SYR"
+  },
+  {
+    "Term": "Biodiversity",
+    "Definition": "The variability among living organisms from all sources, including terrestrial, marine, and other aquatic ecosystems, and the ecological complexes of which they are part."
+  },
+  {
+    "Term": "Bioenergy",
+    "Definition": "Energy derived from biological sources, such as plants and organic waste."
+  },
+  {
+    "Term": "Biofuel",
+    "Definition": "A fuel, generally in liquid form, produced from biomass. Biofuels currently include bioethanol from sugarcane or maize, biodiesel from canola or soybeans, and black liquor from the paper-manufacturing process.  SR1.5"
+  },
+  {
+    "Term": "Biological sequestration includes",
+    "Definition": "direct removal of CO2 from the atmosphere through land-use change (LUC), afforestation, reforestation, revegetation, carbon storage in landfills and practices that enhance soil carbon in agriculture (cropland management, grazing land management).  AR5 SYR"
+  },
+  {
+    "Term": "Biomass",
+    "Definition": "Total dry weight of all living organisms that can be supported at each tropic level in a food chain. Also, materials that are biological in origin, including organic material (both living and dead) from above and below ground, for example, trees, crops, grasses, tree litter, roots, and animals and animal waste."
+  },
+  {
+    "Term": "Biomass energy",
+    "Definition": "Energy produced by combusting biomass materials such as wood. The carbon dioxide emitted from burning biomass will not increase total atmospheric carbon dioxide if this consumption is done on a sustainable basis (i.e., if in a given period of time, regrowth of biomass takes up as much carbon dioxide as is released from biomass combustion). Biomass energy is often suggested as a replacement for fossil fuel combustion."
+  },
+  {
+    "Term": "Biosequestration",
+    "Definition": "The capture and storage of atmospheric greenhouse gases by biological processes, such as through afforestation or soil management."
+  },
+  {
+    "Term": "Biosphere",
+    "Definition": "The living and dead organisms found near the earth's surface in parts of the lithosphere, atmosphere, and hydrosphere. The part of the global carbon cycle that includes living organisms and biogenic organic matter."
+  },
+  {
+    "Term": "Business As Usual (BAU)",
+    "Definition": "Business as usual projections are based on the assumption that operating practices and policies remain as they are at present. Although baseline scenarios could incorporate some specific features of BAU scenarios (e.g., a ban on a specific technology), BAU scenarios imply that no practices or policies other than the current ones are in place.  AR5 WG2 Canc\u00fan Agreements  A set of decisions adopted at the 16th Session of the Conference of the Parties (COP) to the United Nations Framework"
+  },
+  {
+    "Term": "Capacity",
+    "Definition": "The combination of all the strengths, attributes, and resources available to an individual, community, society, or organization, which can be used to achieve established goals."
+  },
+  {
+    "Term": "Capacity Building",
+    "Definition": "The practice of enhancing the strengths and attributes of, and resources available to, an individual, community, society, or organization to respond to change.  AR5 WG2"
+  },
+  {
+    "Term": "Carbon Capture and Storage (CCS)",
+    "Definition": "A process in which carbon dioxide (CO\u2082) is captured from industrial and energy-related sources, transported to a storage location, and isolated from the atmosphere by long-term storage in geological formations or other means."
+  },
+  {
+    "Term": "Carbon cycle",
+    "Definition": "All carbon reservoirs and exchanges of carbon from reservoir to reservoir by various chemical, physical, geological, and biological processes. Usually thought of as a series of the four main reservoirs of carbon interconnected by pathways of exchange. The four reservoirs, regions of the Earth in which carbon behaves in a systematic manner, are the atmosphere, terrestrial biosphere (usually includes freshwater systems), oceans, and sediments (includes fossil fuels). Each of these global reservoirs may be subdivided into smaller pools, ranging in size from individual communities or ecosystems to the total of all living organisms (biota)."
+  },
+  {
+    "Term": "Carbon dioxide",
+    "Definition": "A colorless, odorless, non-poisonous gas that is a normal part of the ambient air. Carbon dioxide is a product of fossil fuel combustion. Although carbon dioxide does not directly impair human health, it is a greenhouse gas that traps terrestrial (i.e., infrared) radiation and contributes to the potential for global warming. See global warming."
+  },
+  {
+    "Term": "Carbon equivalent",
+    "Definition": "A metric measure used to compare the emissions of the different greenhouse gases based upon their global warming potential (GWP). Greenhouse gas emissions in the United States are most commonly expressed as \"million metric tons of carbon equivalents\" (MMTCE). Global warming potentials are used to convert greenhouse gases to carbon dioxide equivalents."
+  },
+  {
+    "Term": "Carbon flux",
+    "Definition": "The rate of exchange of carbon between pools (i.e., reservoirs)."
+  },
+  {
+    "Term": "Carbon Footprint",
+    "Definition": "The total amount of greenhouse gases emitted directly or indirectly by a person, organization, event, or product, expressed as a CO\u2082 equivalent."
+  },
+  {
+    "Term": "Carbon intensity",
+    "Definition": "The relative amount of carbon emitted per unit of some other variable, often per unit of energy or quantity of fuel consumed."
+  },
+  {
+    "Term": "Carbon Neutrality",
+    "Definition": "A state in which net greenhouse gas emissions are balanced by an equivalent amount of greenhouse gas removal or offsetting, resulting in a neutral impact on the climate."
+  },
+  {
+    "Term": "Carbon Offset",
+    "Definition": "A reduction in emissions of carbon dioxide or other greenhouse gases made in order to compensate for emissions produced elsewhere."
+  },
+  {
+    "Term": "Carbon sequestration",
+    "Definition": "The uptake and storage of carbon. Trees and plants, for example, absorb carbon dioxide, release the oxygen and store the carbon. Fossil fuels were at one time biomass and continue to store the carbon until burned."
+  },
+  {
+    "Term": "Carbon sinks",
+    "Definition": "Carbon reservoirs and conditions that take-in and store more carbon (i.e., carbon sequestration) than they release. Carbon sinks can serve to partially offset greenhouse gas emissions. Forests and oceans are large carbon sinks."
+  },
+  {
+    "Term": "Carbon Source",
+    "Definition": "Any process, activity, or mechanism that releases carbon dioxide into the atmosphere."
+  },
+  {
+    "Term": "Carbon Tax",
+    "Definition": "A levy on the carbon content of fossil fuels. Because virtually all of the carbon in fossil fuels is ultimately emitted as carbon dioxide (CO2), a carbon tax is equivalent to an emission tax on CO2 emissions  AR5 SYR"
+  },
+  {
+    "Term": "Clean Development Mechanism (CDM)",
+    "Definition": "A mechanism through which investors (governments or companies) from developed countries may finance greenhouse gas emission reduction or removal projects in developing countries, and receive Certified Emission Reduction Units for doing so, which can be credited towards the commitments of the respective developed countries. The CDM is intended to facilitate the two objectives of promoting sustainable development in developing countries and of helping industrialized countries reach their emissions commitments in a cost-effective way.  AR5 WG2"
+  },
+  {
+    "Term": "Climate",
+    "Definition": "Climate in a narrow sense is usually defined as the average weather, or more rigorously, as the statistical description in terms of the mean and variability of relevant quantities over a period of time ranging from months to thousands or millions of years. The classical period for averaging these variables is 30 years, as defined by the World Meteorological Organization. The relevant quantities are most often surface variables such as temperature, precipitation and wind. Climate in a wider sense is the state, including a statistical description, of the climate system.  SR1.5"
+  },
+  {
+    "Term": "Climate Change",
+    "Definition": "Climate change refers to a change in the state of the climate that can be identified (e.g., by using statistical tests) by changes in the mean and/or the variability of its properties, and that persists for an extended period, typically decades or longer. Climate change may be due to natural internal processes or external forcings such as modulations of the solar cycles, volcanic eruptions, and persistent anthropogenic changes in the composition of the atmosphere or in land use. Note that the Framework Convention on Climate Change (UNFCCC), in its Article 1, defines climate change as: \u201ca change of climate which is attributed directly or indirectly to human activity that alters the composition of the global atmosphere and which is in addition to natural climate variability observed over comparable time periods.\u201dThe UNFCCC thus makes a distinction between climate change attributable to human activities altering the atmospheric composition, and climate variability attributable to natural causes.  AR5 WG2"
+  },
+  {
+    "Term": "Climate Change (UNFCCC)",
+    "Definition": "The UNFCCC was adopted in May 1992 and opened for signature at the 1992 Earth Summit in Rio de Janeiro. It entered into force in March 1994 and as of May 2018 had 197 Parties (196 States and the European Union). The Convention\u2019s ultimate objective is the \u2018stabilisation of greenhouse gas concentrations in the atmosphere at a level that would prevent dangerous anthropogenic interference with the climate system.\u2019 The provisions of the Convention are pursued and implemented by two treaties: the Kyoto Protocol and the Paris Agreement.  SR1.5"
+  },
+  {
+    "Term": "Climate Feedback",
+    "Definition": "An interaction in which a perturbation in one climate quantity causes a change in a second and the change in the second quantity ultimately leads to an additional change in the first. A negative feedback is one in which the initial perturbation is weakened by the changes it causes; a positive feedback is one in which the initial perturbation is enhanced. The initial perturbation can either be externally forced or arise as part of internal variability.  SR1.5"
+  },
+  {
+    "Term": "Climate Finance",
+    "Definition": "There is no agreed definition of climate finance. The term climate finance is applied both to the financial resources devoted to addressing climate change globally and to financial flows to developing countries to assist them in addressing climate change. The literature includes several concepts in these categories.  AR5 SYR C C"
+  },
+  {
+    "Term": "Climate Forcing",
+    "Definition": "An external influence on the climate system that can change the balance of incoming and outgoing energy, leading to climate change. Examples include volcanic eruptions and anthropogenic greenhouse gas emissions. (IPCC)"
+  },
+  {
+    "Term": "Climate Governance",
+    "Definition": "Purposeful mechanisms and measures aimed at steering social systems towards preventing, mitigating, or adapting to the risks posed by climate change (Jagers and Stripple, 2003).  SR1.5"
+  },
+  {
+    "Term": "Climate Justice",
+    "Definition": "Justice that links development and human rights to achieve a human-centred approach to addressing climate change, safeguarding the rights of the most vulnerable people and sharing the burdens and benefits of climate change and its impacts equitably and fairly.  SR1.5"
+  },
+  {
+    "Term": "Climate lag",
+    "Definition": "The delay that occurs in climate change as a result of some factor that changes very slowly. For example, the effects of releasing more carbon dioxide into the atmosphere may not be known for some time because a large fraction is dissolved in the ocean and only released to the atmosphere many years later."
+  },
+  {
+    "Term": "Climate Model",
+    "Definition": "A numerical representation of the climate system based on the physical, chemical and biological properties of its components, their interactions and feedback processes, and accounting for some of its known properties. The climate system can be represented by models of varying complexity; that is, for any one component or combination of components a spectrum or hierarchy of models can be identified. Climate models are applied as a research tool to study and simulate the climate and for operational purposes, including monthly, seasonal and interannual climate predictions  SR1.5"
+  },
+  {
+    "Term": "Climate Projection",
+    "Definition": "A climate projection is the simulated response of the climate system to a scenario of future emission or concentration of greenhouse gases and aerosols, generally derived using climate models. Climate projections are distinguished from climate predictions by their dependence on the emission/ concentration/radiative-forcing scenario used, which is in turn based on assumptions concerning, for example, future socioeconomic and technological developments that may or may not be realized.  AR5 WG2"
+  },
+  {
+    "Term": "Climate Resilient Development Pathways",
+    "Definition": "Trajectories that strengthen sustainable development and efforts to eradicate poverty and reduce inequalities while promoting fair and cross-scalar adaptation to and resilience in a changing climate. They raise the ethics, equity and feasibility aspects of the deep societal transformation needed to drastically reduce emissions to limit global warming (e.g., to 1.5\u00b0C) and achieve desirable and liveable futures and well-being for all.  SR1.5"
+  },
+  {
+    "Term": "Climate Scenario",
+    "Definition": "A plausible and often simplified representation of the future climate, based on an internally consistent set of climatological relationships that has been constructed for explicit use in investigating the potential consequences of anthropogenic climate change, often serving as input to impact models. Climate projections often serve as the raw material for constructing climate scenarios, but climate scenarios usually require additional information such as the observed current climate.  AR5 WG2"
+  },
+  {
+    "Term": "Climate Science",
+    "Definition": "Climate science is the study of relatively long-term weather conditions, typically spanning decades to centuries but extending to geological timescales. The discipline is primarily concerned with atmospheric properties \u2013 for example temperature and humidity \u2013 and patterns of circulation, as well as interactions with the ocean, the biosphere, and, over longer timescales, the geosphere."
+  },
+  {
+    "Term": "Climate Services",
+    "Definition": "Climate services refers to information and products that enhance users\u2019 knowledge and understanding about the impacts of climate change and/or climate variability so as to aid decision-making of individuals and C C  organizations and enable preparedness and early climate change action. Products can include climate data products.  SR1.5"
+  },
+  {
+    "Term": "Climate Smart Agriculture",
+    "Definition": "Climate-smart agriculture (CSA) is an ap\u00ad proach that helps to guide actions need\u00ad ed to transform and reorient agricultural systems to effectively support development and ensure food security in a changing climate. CSA aims to tackle three main ob\u00ad jectives: sustainably increasing agricultural productivity and incomes, adapting and building resilience to climate change, and reducing and/or removing greenhouse gas emissions, where possible (FAO, 2018)  SR1.5"
+  },
+  {
+    "Term": "Climate System",
+    "Definition": "The climate system is the highly complex system consisting of five major compo\u00ad nents: the atmosphere, the hydrosphere, the cryosphere, the lithosphere, and the biosphere, and the interactions among them. The climate system evolves in time under the influence of its own internal dynamics and because of external forcings such as volcanic eruptions, solar variations, and anthropogenic forcings such as the changing composition of the atmosphere and land use change.  AR5 WG2"
+  },
+  {
+    "Term": "Climate Target",
+    "Definition": "Climate target refers to a temperature limit, concentration level, or emissions reduc\u00ad tion goal used towards the aim of avoiding dangerous anthropogenic interference with the climate system. For example, national climate targets may aim to reduce green\u00ad house gas emissions by a certain amount over a given time horizon, for example those under the Kyoto Protocol.  SR1.5"
+  },
+  {
+    "Term": "Climate Variability",
+    "Definition": "Climate variability refers to variations in the mean state and other statistics (such as standard deviations, the occurrence of extremes, etc.) of the climate on all spatial and temporal scales beyond that of individual weather events. Variability may be due to natural internal processes within the climate system (internal variability), or to variations in natural or anthropogenic external forcing (external variability).  SR1.5"
+  },
+  {
+    "Term": "Co-benefits",
+    "Definition": "The positive effects that a policy or measure aimed at one objective might have on other objectives, irrespective of the net effect on overall social welfare. Co- benefits are often subject to uncertainty and depend on local circumstances and implementation practices, among other factors. Co-benefits are also referred to as ancillary benefits.  AR5 WG2"
+  },
+  {
+    "Term": "Common but Differentiated Responsibili\u00adties (CBDR)",
+    "Definition": "Common but Differentiated Responsibilities and Respective Capabilities (CBDR\u2013RC) is a key principle in the United Nations Framework Convention on Climate Change (UNFCCC) that recognises the different capabilities and differing responsibilities of individual countries in tacking climate change. The convention states: \u201c\u2026 the global nature of climate change calls for the widest possible cooperation by all countries and their participation in an effective and appropriate international response, in accordance with their common but differentiated responsibilities and respective capabilities and their social and economic conditions.\u201d Since then the CBDR- RC principle has guided the UN climate negotiations  SR1.5"
+  },
+  {
+    "Term": "Community-based Adaptation",
+    "Definition": "Local, community-driven adaptation. Community-based adaptation focuses attention on empowering and promoting the adaptive capacity of communities. It is an approach that takes context, culture, knowledge, agency, and preferences of communities as strengths.  AR5 WG2"
+  },
+  {
+    "Term": "Composting",
+    "Definition": "Partial breakdown of organic plant and animal matter by aerobic bacteria to produce a material that can be used as a soil conditioner or fertilizer."
+  },
+  {
+    "Term": "Conference of the Parties (COP)",
+    "Definition": "The supreme body of UN conventions, such as the United Nations Framework Convention on Climate Change (UNFCCC), comprising parties with a right to vote C C  that have ratified or acceded to the convention. See also United Nations Framework Convention on Climate Change (UNFCCC).  SR1.5"
+  },
+  {
+    "Term": "Convention on Climate",
+    "Definition": "Change (UNFCCC), including the following, among others: the newly established Green Climate Fund (GCF), a newly established technology mechanism, a process for advancing discussions on adaptation, a formal process for reporting mitigation commitments, a goal of limiting global mean surface temperature increase to 2\u00b0C and an agreement on MRV\u2014Measurement,"
+  },
+  {
+    "Term": "Cultural Impacts",
+    "Definition": "Impacts on material and ecological aspects of culture and the lived experience of cul\u00ad ture, including dimensions such as identity, community cohesion and belonging, sense of place, worldview, values, perceptions, and tradition. Cultural impacts are closely related to ecological impacts, especially for iconic and representational dimensions of species and landscapes. Culture and cul\u00ad tural practices frame the importance and value of the impacts of change, shape the feasibility and acceptability of adaptation options, and provide the skills and practices that enable adaptation  AR5 WG2"
+  },
+  {
+    "Term": "Decarbonisation",
+    "Definition": "The process by which countries or other entities aim to achieve a low carbon economy, or by which individuals aim to reduce their consumption of carbon.  SR1.5"
+  },
+  {
+    "Term": "Decoupling",
+    "Definition": "Decoupling (in relation to climate change) is where economic growth is no longer strongly associated with consumption of fossil fuels. Relative decoupling is where both grow but at different rates. Absolute decoupling is where economic growth happens but fossil fuels decline.  SR1.5"
+  },
+  {
+    "Term": "Deforestation",
+    "Definition": "Conversion of forest to non-forest.  SR1.5"
+  },
+  {
+    "Term": "Deforestation",
+    "Definition": "Those practices or processes that result in the conversion of forested lands for non-forest uses. This is often cited as one of the major causes of the enhanced greenhouse effect for two reasons: 1) the burning or decomposition of the wood releases carbon dioxide; and 2) trees that once removed carbon dioxide from the atmosphere in the process of photosynthesis are no longer present."
+  },
+  {
+    "Term": "Desertification",
+    "Definition": "Land degradation in arid, semi-arid, and dry sub-humid areas resulting from various factors, including climatic variations and human activities."
+  },
+  {
+    "Term": "Direct Air Capture (DAC)",
+    "Definition": "A technology that extracts CO\u2082 directly from ambient air and stores it or reuses it, aiding in achieving negative emissions."
+  },
+  {
+    "Term": "Disaster",
+    "Definition": "Severe alterations in the norma functioning of a community or a society due to hazardous physical events interacting with vulnerable social conditions, leading to widespread adverse human, material, economic, or environmental effects that require immediate emergency response to satisfy critical human needs and that may require external support for recovery.  AR5 WG1l"
+  },
+  {
+    "Term": "Disaster Management",
+    "Definition": "Social processes for designing, imple\u00ad menting, and evaluating strategies, policies, and measures that promote and improve disaster preparedness, re\u00ad sponse, and recovery practices at differ\u00ad ent organizational and societal levels.  AR5 WG2"
+  },
+  {
+    "Term": "Disaster Risk",
+    "Definition": "The likelihood over a specified time period of severe alterations in the normal functioning of a community or a society due to hazardous physical events interacting with vulnerable social conditions, leading to widespread adverse human, material, economic, or environmental effects that require immediate emergency response to satisfy critical human needs and that may require external support for recovery SREX D C D"
+  },
+  {
+    "Term": "Disaster Risk Management (DRM)",
+    "Definition": "Processes for designing, implementing, and evaluating strategies, policies, and measures to improve the understand\u00ad ing of disaster risk, foster disaster risk reduction and  transfer, and promote continuous improvement in disaster preparedness, response, and recovery practices, with the explicit purpose of increasing human security, well-being, quality of life, and sustainable develop\u00ad ment."
+  },
+  {
+    "Term": "Disaster Risk Reduction (DRR)",
+    "Definition": "Denotes both a policy goal or objec\u00ad tive, and the strategic and instrumental measures employed for anticipating future disaster risk; reducing existing exposure, hazard, or vulnerability; and improving resilience."
+  },
+  {
+    "Term": "Disruptive Innovation",
+    "Definition": "Disruptive innovation is demand-led technological change that leads to significant system change and is characterized by strong exponential growth.  SR1.5"
+  },
+  {
+    "Term": "Drought",
+    "Definition": "A period of abnormally dry weather long enough to cause a serious hydrological imbalance. Drought is a relative term; therefore any discussion in terms of precipitation deficit must refer to the particular precipitation- related activity that is under discussion. For example, shortage of precipitation during the growing season impinges on crop production or ecosystem function in general (due to soil moisture drought, also termed agricultural drought) and during the runoff and percolation season primarily affects water supplies (hydrological drought). Storage changes in soil moisture and groundwater are also affected by increases in actual evapotranspiration in addition to reductions in precipitation. A period with an abnormal precipitation deficit is defined as a meteorological drought. A megadrought is a very lengthy and pervasive drought, lasting much longer than normal, usually a decade or more  AR5 SYR"
+  },
+  {
+    "Term": "Early Warning System",
+    "Definition": "The set of technical, financial and institutional capacities needed to generate and disseminate timely and meaningful warning information to enable individuals, communities and organizations threatened by a hazard to prepare to act promptly and appropriately to reduce the possibility of harm or loss. Dependent upon context, EWS may draw upon scientific and/or Indigenous knowledge. EWS are also considered for ecological applications e.g., conservation, where the organization itself is not threatened by hazard but the ecosystem under conservation is (an example is coral bleaching alerts), in agriculture (for example, warnings of ground frost, hailstorms) and in fisheries (storm and tsunami warnings).  SR1.5"
+  },
+  {
+    "Term": "Economy",
+    "Definition": "System of production, distribution, and consumption of economic goods."
+  },
+  {
+    "Term": "Ecosystem",
+    "Definition": "An ecosystem is a functional unit consisting of living organisms, their non-living environment, and the interactions within and between them. E D E  The components included in a given ecosystem and its spatial boundaries depend on the purpose for which the ecosystem is defined: in some cases they are relatively sharp, while in others they are diffuse. Ecosystem boundaries can change over time. Ecosystems are nested within other ecosystems, and their scale can range from very small to the entire biosphere. In the current era, most ecosystems either contain people as key organisms, or are influenced by the effects of human activities in their environment.  AR5 WG1"
+  },
+  {
+    "Term": "Ecosystem Services",
+    "Definition": "Ecological processes or functionshaving monetary or non-monetary value to individuals or society at large. These are frequently classified as (1) supporting services such as productivity or biodiversity maintenance, (2) provisioning services such as food, fiber, or fish, (3) regulating services such as climate regulation or carbon sequestration, and (4) cultural services such as tourism or spiritual and aesthetic appreciation.  AR5 WG2 El Ni\u00f1o-Southern Oscillation (ENSO)  The term El Ni\u00f1o was initially used to describe a warm-water current that periodically flows along the coast of Ecuador and Peru, disrupting the local fishery. It has since become identified with a basin-wide warming of the tropical Pacific Ocean east of the dateline. This oceanic event is associated with a fluctuation of a global- scale tropical and subtropical surface pressure pattern called the Southern Oscillation. This coupled atmosphere\u2013 ocean phenomenon, with preferred time scales of two to about seven years, is known as the El Ni\u00f1o-Southern Oscillation (ENSO). It is often measured by the surface pressure anomaly difference between Tahiti and Darwin or the sea surface temperatures in the central and eastern equatorial Pacific. During an ENSO event, the prevailing trade winds weaken, reducing upwelling and altering ocean currents such that the sea surface temperatures warm, further weakening the trade winds. This event has a great impact on the wind, sea surface temperature and precipitation patterns in the tropical Pacific. It has climatic effects throughout the Pacific region and in many other parts of the world, through global teleconnections. The cold phase of ENSO is called La Ni\u00f1a.  AR5 SYR"
+  },
+  {
+    "Term": "Ecosystem-Based Adaptation",
+    "Definition": "The use of biodiversity and ecosystem services as part of an overall adaptation strategy to help people to adapt to the adverse effects of climate change. Ecosystem-based adaptation uses the range of opportunities for the sustainable management, conservation, and restoration of ecosystems to provide services that enable people to adapt to the impacts of climate change. It aims to maintain and increase the resilience and reduce the vulnerability of ecosystems and people in the face of the adverse effects of climate change.  AR5 WG2"
+  },
+  {
+    "Term": "Emergent Risks",
+    "Definition": "A risk that arises from the interaction of phenomena in a complex system, for example, the risk caused when geographic shifts in human population in response to climate change lead to increased vulnerability and exposure of populations in the receiving region  AR5 WG2 E E"
+  },
+  {
+    "Term": "Emission Factors",
+    "Definition": "Values that estimate the quantity of pollutants released to the atmosphere by specific activities (e.g., kg of CO\u2082 emitted per liter of fuel burned)."
+  },
+  {
+    "Term": "Emission Scenario",
+    "Definition": "A plausible representation of the future development of emissions of substances that are potentially radiatively active (e.g., greenhouse gases, aerosols) based on a coherent and internally consistent set of assumptions about driving forces (such as demographic and socioeconomic development, technological change) and their key relationships. Concentration scenarios, derived from emission scenarios, are used as input to a climate model to compute climate projections.  AR5 WG2"
+  },
+  {
+    "Term": "Emissions",
+    "Definition": "Releases of gases to the atmosphere (e.g., the release of carbon dioxide during fuel combustion). Emissions can be either intended or unintended releases."
+  },
+  {
+    "Term": "Emissions Trading",
+    "Definition": "A market-based instrument aiming at meeting a mitigation objective in an efficient way. A cap on GHG emissions is divided in tradeable emission permits that are allocated by a combination of auctioning and handing out free allowances to entities within the jurisdiction of the trading scheme. Entities need to surrender emission permits equal to the amount of their emissions (e.g., tonnes of CO2). An entity may sell excess permits to entities that can avoid the same amount of emissions in a cheaper way. Trading schemes may occur at the intra- company, domestic, or international level (e.g., the flexibility mechanisms under the Kyoto Protocol and the EU- ETS) and may apply to carbon dioxide (CO2), other greenhouse gases (GHGs), or other substances.  SR1.5"
+  },
+  {
+    "Term": "Emissions Trading System (ETS)",
+    "Definition": "A market-based approach to controlling pollution by providing economic incentives for reducing the emissions of pollutants."
+  },
+  {
+    "Term": "Enabling Conditions",
+    "Definition": "Conditions that affect the feasibility of adaptation and mitigation options, and can accelerate and scale-up systemic transitions that would limit temperature increase to 1.5\u00b0C and enhance capacities of systems and societies to adapt to the associated climate change, while achieving sustainable development, eradicating poverty and reducing inequalities.  SR1.5"
+  },
+  {
+    "Term": "Energy Access",
+    "Definition": "Access to clean, reliable and affordable energy services for cooking and heating, lighting, communications and productive uses  AR5 SYR"
+  },
+  {
+    "Term": "Energy Security",
+    "Definition": "The goal of a given country, or the global community as a whole, to maintain an adequate, stable and predictable energy supply. Measures encompass safeguarding the sufficiency of energy resources to meet national energy demand at competitive and stable prices and the resilience of the energy supply; enabling development and deployment of technologies; building sufficient infrastructure to generate, store and transmit energy supplies and ensuring enforceable contracts of delivery.  AR5 SYR"
+  },
+  {
+    "Term": "Enteric fermentation",
+    "Definition": "A digestive process by which carbohydrates are broken down by microorganisms into simple molecules for absorption into the bloodstream of an animal."
+  },
+  {
+    "Term": "Environment",
+    "Definition": "All external conditions that affect an organism or other specified system during its lifetime."
+  },
+  {
+    "Term": "Environmental Degradation",
+    "Definition": "The deterioration of the environment through depletion of resources, destruction of ecosystems, and pollution."
+  },
+  {
+    "Term": "Equality",
+    "Definition": "A principle that ascribes equal worth to all human beings, including equal opportunities, rights, and obligations, irrespective of origins. Inequality: Uneven opportunities and social positions, and processes of discrimination within a group or society, based on gender, class, ethnicity, age, and (dis) ability, often produced by uneven development. Income inequality refers to gaps between highest and lowest income earners within a country and between countries.  SR1.5"
+  },
+  {
+    "Term": "Equity",
+    "Definition": "Equity is the principle of fairness in burden sharing and is a basis for understanding how the impacts and E E  responses to climate change, including costs and benefits, are distributed in and by society in more or less equal ways. It is often aligned with ideas of equality, fairness and justice and applied with respect to equity in the responsibility for, and distribution of, climate impacts and policies across society, generations, and gender, and in the sense of who participates and controls the processes of decision- making. Distributive equity: Equity in the consequences, outcomes, costs and benefits of actions or policies. In the case of climate change or climate policies for different people, places and countries, including equity aspects of sharing burdens and benefits for mitigation and adaptation. Gender equity: Ensuring equity in that women and men have the same rights, resources and opportunities. In the case of climate change gender equity recognizes that women are often more vulnerable to the impacts of climate change and may be disadvantaged in the process and outcomes of climate policy. Inter-generational equity: Equity between generations that acknowledges that the effects of past and present emissions, vulnerabilities and policies impose costs and benefits for people in the future and of different age groups.  SR1.5"
+  },
+  {
+    "Term": "Exposure",
+    "Definition": "The presence of people, livelihoods, species or ecosystems, environmental functions, services, and resources, infrastructure, or economic, social, or cultural assets in places and settings that could be adversely affected.  AR5 WG2"
+  },
+  {
+    "Term": "Extreme Weather Event",
+    "Definition": "An extreme weather event is an event that is rare at a particular place and time of year. Definitions of rare vary, but an extreme weather event would normally be as rare as or rarer than the 10th or 90th percentile of a probability density function estimated from observations. By definition, the characteristics of what is called extreme weather may vary from place to place in an absolute sense. When a pattern of extreme weather persists for some time, such as a season, it may be classed as an extreme climate event, especially if it yields an average or total that is itself extreme (e.g., drought or heavy rainfall over a season).  AR5 WG2 E E"
+  },
+  {
+    "Term": "Feasibility",
+    "Definition": "The degree to which climate goals and response options are considered possible and/or desirable. Feasibility depends on geophysical, ecological, technological, economic, social and institutional conditions for change.Conditions underpinning feasibility are dynamic, spatially variable, and may vary between different groups. See also Enabling conditions.  SR1.5"
+  },
+  {
+    "Term": "Feedback Loop",
+    "Definition": "A system response where an initial change triggers processes that either amplify (positive feedback) or dampen (negative feedback) the change."
+  },
+  {
+    "Term": "Flood",
+    "Definition": "The overflowing of the normal confines of a stream or other body of water, or the accumulation of water over areas not normally submerged. Floods include river (fluvial) floods, flash floods, urban floods, pluvial floods, sewer floods, coastal floods and glacial lake outburst floods  AR5 SYR"
+  },
+  {
+    "Term": "Fluorinated Gases",
+    "Definition": "Powerful greenhouse gases emitted from industrial processes. Although present in smaller quantities, they have high Global Warming Potentials (GWPs)."
+  },
+  {
+    "Term": "Food Security",
+    "Definition": "A state that prevails when people have secure access to sufficient amounts of safe and nutritious food for normal growth, development and an active and healthy life.  AR5 SYR"
+  },
+  {
+    "Term": "Fossil fuel",
+    "Definition": "A general term for buried combustible geologic deposits of organic materials, formed from decayed plants and animals that have been converted to crude oil, coal, natural gas, or heavy oils by exposure to heat and pressure in the earth's crust over hundreds of millions of years."
+  },
+  {
+    "Term": "Fossil fuel combustion",
+    "Definition": "Burning of coal, oil (including gasoline), or natural gas. The burning needed to generate energy release carbon dioxide by-products that can include unburned hydrocarbons, methane, and carbon monoxide. Carbon monoxide, methane, and many of the unburned hydrocarbons slowly oxidize into carbon dioxide in the atmosphere. Common sources of fossil fuel combustion include cars and electric utilities."
+  },
+  {
+    "Term": "Fossil Fuel Emissions",
+    "Definition": "Emissions of greenhouse gases (in particular carbon dioxide), other trace gases and aerosols resulting from the combustion of fuels from fossil carbon deposits such as oil, gas and coal.  AR5 WG1"
+  },
+  {
+    "Term": "Fuel Poverty",
+    "Definition": "A condition in which a household is unable to guarantee a certain level of consumption of domestic energy services (especially heating) or suffers disproportionate expenditure burdens to meet these needs.  AR5 SYR"
+  },
+  {
+    "Term": "Geoengineering",
+    "Definition": "Geoengineering refers to a broad set of methods and technologies that aim to deliberately alter the climate system in order to alleviate the impacts of climate change. Most, but not all, methods seek to either (1) reduce the amount of absorbed solar energy in the climate system (Solar Radiation Management) or (2) increase net carbon sinks from the atmosphere at a scale sufficiently large to alter climate (Carbon Dioxide Removal). Scale and intent are of central importance. Two key characteristics of geoengineering methods of particular concern are that they use or affect the climate system (e.g., atmosphere, land or ocean) globally or regionally and/or could have substantive unintended effects that cross national boundaries.  AR5 WG1 F F G G"
+  },
+  {
+    "Term": "Global Warming",
+    "Definition": "The estimated increase in global mean surface temperature (GMST) averaged over a 30-year period, or the 30-year period centered on a particular year or decade, expressed relative to pre- industrial levels unless otherwise specified. For 30-year periods that span past and future years, the current multi- decadal warming trend is assumed to continue.  SR1.5"
+  },
+  {
+    "Term": "Global Warming Potential (GWP)",
+    "Definition": "The index used to translate the level of emissions of various gases into a common measure in order to compare the relative radiative forcing of different gases without directly calculating the changes in atmospheric concentrations. GWPs are calculated as the ratio of the radiative forcing that would result from the emissions of one kilogram of a greenhouse gas to that from the emission of one kilogram of carbon dioxide over a period of time (usually 100 years)."
+  },
+  {
+    "Term": "Governance",
+    "Definition": "There is a corresponding shift from government defined strictly by the nation-state to a more inclusive concept of governance, recognizing the contributions of various levels of government (global, international, regional, local) and the roles of the private sector, of nongovernmental actors, and of civil society."
+  },
+  {
+    "Term": "Greenhouse effect",
+    "Definition": "Trapping and build-up of heat in the atmosphere (troposphere) near the earth\u2019s surface. Some of the heat flowing back toward space from the earth's surface is absorbed by water vapor, carbon dioxide, ozone, and several other gases in the atmosphere and then reradiated back toward the earth\u2019s surface. If the atmospheric concentrations of these greenhouse gases rise, the average temperature of the lower atmosphere will gradually increase."
+  },
+  {
+    "Term": "Greenhouse Gases (GHGs)",
+    "Definition": "Greenhouse gases are those gaseous constituents of the atmosphere, both natural and anthropogenic, that absorb and emit radiation at specific wavelengths within the spectrum of terrestrial radiation emitted by the Earth\u2019s surface, the atmosphere itself and by clouds. This property causes the greenhouse effect. Water vapour (H2O), carbon dioxide (CO2), nitrous oxide (N2O), methane (CH4) and ozone (O3) are the primary GHGs in the Earth\u2019s atmosphere. Moreover, there are a number of entirely human-made GHGs in the atmosphere, such as the halocarbons and other chlorine- and bromine-containing substances, dealt with under the Montreal Protocol.  SR1.5"
+  },
+  {
+    "Term": "Greenwashing",
+    "Definition": "Deceptive marketing practices used by companies to appear more environmentally friendly than they actually are."
+  },
+  {
+    "Term": "Hazard",
+    "Definition": "The potential occurrence of a natural or human-induced physical event that may cause loss of life, injury, or other health impacts, as well as damage and loss to property, infrastructure, livelihoods, service provision, and environmental resources."
+  },
+  {
+    "Term": "Heat Wave",
+    "Definition": "A period of abnormally and uncomfortably hot weather.  AR5 SYR"
+  },
+  {
+    "Term": "Human Security",
+    "Definition": "A condition that is met when the vital core of human lives is protected, and when people have the freedom and capacity to live with dignity. In the context of climate change, the vital core of human lives includes the universal and culturally specific, material and non-material elements necessary for people to act on behalf of their interests and to live with dignity.  AR5 WG2 H G H"
+  },
+  {
+    "Term": "Hydrocarbons",
+    "Definition": "Substances containing only hydrogen and carbon. Fossil fuels are made up of hydrocarbons. Some hydrocarbon compounds are major air pollutants."
+  },
+  {
+    "Term": "Hydrofluorocarbons (HFCs)",
+    "Definition": "Synthetic compounds used in refrigeration and air conditioning, potent GHGs regulated under the Kigali Amendment to the Montreal Protocol."
+  },
+  {
+    "Term": "Impact Assessment",
+    "Definition": "The practice of identifying and evaluating, in monetary and/or nonmonetary terms, the effects of climate change on natural and human systems.  AR5 WG2"
+  },
+  {
+    "Term": "Impacts",
+    "Definition": "The consequences of realized risks on natural and human systems, where risks result from the interactions of climate-related hazards (including extreme weather and climate events), exposure, and vulnerability. Impacts generally refer to effects on lives; livelihoods; health and well-being; ecosystems and species; economic, social and cultural assets; services (including ecosystem services); and infrastructure. Impacts may be referred to as consequences or outcomes, and can be adverse or beneficial.  SR1.5"
+  },
+  {
+    "Term": "Indigenous People",
+    "Definition": "Indigenous peoples and nations are those that, having a historical continuity with pre-invasion and pre-colonial societies that developed on their territories, consider themselves distinct from other sectors of the societies now prevailing on those territories, or parts of them. They form, at present, principally non-dominant sectors of society and are often determined to preserve, develop, and transmit to future generations their ancestral territories, and their ethnic identity, as the basis of their continued existence as peoples, in accordance with their own cultural patterns, social institutions, and common law system.  AR5 WG2"
+  },
+  {
+    "Term": "Industrial Revolution",
+    "Definition": "A period of rapid industrial growth with far-reaching social and economic con\u00ad sequences, beginning in Britain during the second half of the 18th century and spreading to Europe and later to other countries including the United States. The invention of the steam engine was an important trigger of this develop\u00ad ment. The industrial revolution marks the beginning of a strong increase in the use of fossil fuels and emission of, in particular, fossil carbon dioxide (CO2).  AR5 SYR"
+  },
+  {
+    "Term": "Informal Sector",
+    "Definition": "Commercial enterprises (mostly small) that are not registered or that otherwise fall outside official rules and regulations. Among the businesses that make up the informal sector, there is great diversity in the value of the goods or services produced, the numbers employed, the extent of illegality, and the connection to the formal sector.Many informal enterprises have some characteristics of formal-sector enterprises, and some people are in informal employment in the formal sector as they lack legal protection or employment benefits.  AR5 WG2"
+  },
+  {
+    "Term": "Informal Settlement",
+    "Definition": "A term given to settlements or residential areas that, by at least one criterion, fall outside official rules and regulations. Most informal settlements have poor housing I I I  (with widespread use of temporary materials) and are developed on land that is occupied illegally with high levels of overcrowding. In most such settlements, provision for safe water, sanitation, drainage, paved roads, and basic services is inadequate or lacking. The term slum is often used for informal settlements, although it is misleading as many informal settlements develop into good quality residential areas, especially where governments support such development.  AR5 WG2"
+  },
+  {
+    "Term": "Institutions",
+    "Definition": "Institutions are rules and norms held in common by social actors that guide, constrain, and shape human interaction. Institutions can be formal, such as laws and policies, or informal, such as norms and conventions. Organizations\u2014such as parliaments, regulatory agencies, private firms, and community bodies\u2014develop and act in response to institutional frameworks and the incentives they frame. Institutions can guide, constrain, and shape human interaction through direct control, through incentives, and through processes of socialization.  AR5 WG2"
+  },
+  {
+    "Term": "Insurance/Reinsurance",
+    "Definition": "A family of financial instruments for sharing and transferring risk among a pool of at-risk households, businesses, and/or governments."
+  },
+  {
+    "Term": "Integrated Coastal Zone Management",
+    "Definition": "An integrated approach for sustainably managing coastal areas, taking into account all coastal habitats and uses.  AR5 SYR"
+  },
+  {
+    "Term": "Integrated Water Resource Management",
+    "Definition": "A process which promotes the coordi\u00ad nated development and management of water, land and related resources in order to maximize economic and social welfare in an equitable manner without compromising the sustainability of vital ecosystems.  SR1.5"
+  },
+  {
+    "Term": "IPCC (Intergovernmental Panel on Climate Change)",
+    "Definition": "A UN body that provides scientific assessments on climate change, its impacts, and possible future risks."
+  },
+  {
+    "Term": "Just Transition",
+    "Definition": "A framework to ensure fairness for workers and communities as societies shift toward a low-carbon economy."
+  },
+  {
+    "Term": "Kyoto Protocol",
+    "Definition": "The Kyoto Protocol to the United Nations Framework Convention on Climate Change (UNFCCC) is an international treaty adopted in December 1997 in Kyoto, Japan, at the Third Session of the Conference of the Parties (COP3) to the UNFCCC. It contains legally binding commitments, in addition to those included in the \nUNFCCC. Countries included in Annex B of the Protocol (mostly OECD countries and countries with economies in transition) agreed to reduce their anthropogenic greenhouse gas (GHG) emissions by at least 5% below 1990 levels in the first commitment period (2008\u20132012). The Kyoto Protocol entered into force on 16 February 2005 and as of May 2018 had 192 Parties (191 States and the European Union).\nSR1.5"
+  },
+  {
+    "Term": "Land Grab",
+    "Definition": "Large acquisitions of land or water rights for industrial agriculture, mitigation projects, or biofuels that have negative consequences on local and marginalized communities.  AR5 WG2 Land Use and Land Use Change  Land use refers to the total of arrangements, activities, and inputs undertaken in a certain land cover type (a set of human actions). The term land use is also used in the sense of the social and economic purposes for which land is managed (e.g., grazing, timber extraction, and conservation). Land use change refers to a change in the use or management of land by humans, which may lead to a change in land cover. Land cover and land use change may have an impact on the surface albedo, evapotranspiration, sources and sinks of greenhouse gases, or other properties of the climate system and may thus give rise to radiative forcing and/or other impacts on climate, locally or globally.  AR5 WG2"
+  },
+  {
+    "Term": "Landfill",
+    "Definition": "Land waste disposal site in which waste is generally spread in thin layers, compacted, and covered with a fresh layer of soil each day."
+  },
+  {
+    "Term": "Land-Use Change",
+    "Definition": "Alterations in the way land is used (e.g., converting forest to farmland), often contributing to emissions or loss of carbon sinks."
+  },
+  {
+    "Term": "Livelihoods",
+    "Definition": "The resources used and the activities undertaken in order to live. Livelihoods are usually determined by the entitle\u00ad ments and assets to which people have access. Such assets can be categorized as human, social, natural, physical, or financial.  AR5 WG2"
+  },
+  {
+    "Term": "Local Disaster Risk Management (LDRM)",
+    "Definition": "The process in which local actors (citizens, communities, government, non-profit organizations, institutions, and businesses) engage in and have ownership of the identification, analysis, evaluation, monitoring, and treatment of disaster risk and disasters,  through measures  that reduce or anticipate hazard, exposure, or vulnerability; transfer risk; improve disaster response and recovery; and promote  an overall increase in capacities. LDRM normally requires coordination with and support from external actors at the regional, national, or international levels. Community-based disaster risk management is a subset of LDRM where community members and organizations are in the center of decisionmaking."
+  },
+  {
+    "Term": "Lock-in",
+    "Definition": "Lock-in occurs when a market is stuck with a standard even though participants would be better off with an alternative. In this report, lock-in is used more broadly as path dependence, which is the generic situation where decisions, events or outcomes at one point in time constrain adaptation, mitigation or other actions or options at a later point in time.  AR5 SYR"
+  },
+  {
+    "Term": "Loss and Damage",
+    "Definition": "Research has taken Loss and Damage (capitalized letters) to refer to political L L L  debate under the UNFCCC following the establishment of the Warsaw Mech\u00ad anism on Loss and Damage in 2013, which is to \u2018address loss and damage associated with impacts of climate change, including extreme events and slow onset events, in developing coun\u00ad tries that are particularly vulnerable to the adverse effects of climate change.\u2019  SR1.5"
+  },
+  {
+    "Term": "Low Regrets Policy",
+    "Definition": "A policy that would generate net so\u00ad cial and/or economic benefits under current climate and a range of future climate change scenarios.  AR5 WG2"
+  },
+  {
+    "Term": "Maladaptation",
+    "Definition": "Actions that may lead to increased risk of adverse climate-related outcomes, including via increased GHG emissions, increased vulnerability to climate change, or diminished welfare, now or in the future. Maladaptation is usually an unintended consequence.  SR1.5"
+  },
+  {
+    "Term": "Methane (CH\u2084)",
+    "Definition": "A potent greenhouse gas with a GWP over 20 times greater than CO\u2082 over a 100-year period, released from livestock, agriculture, and fossil fuel extraction."
+  },
+  {
+    "Term": "Migration",
+    "Definition": "Migration (IOM) defines migration as \u2018The movement of a person or a group of persons, either across an international border, or within a State. It is a population movement, encompassing any kind of movement of people, whatever its length, composition and causes; it includes migration of refugees, displaced persons, economic migrants, and persons moving for other purposes, including family reunification.\u2019  SR1.5 Mitigation (of disaster risk and disaster)  The lessening of the potential adverse impacts of physical hazards (including those that are human-induced) through actions that reduce hazard, exposure, and vulnerability.  AR5 WG2"
+  },
+  {
+    "Term": "Mitigation (of climate change)",
+    "Definition": "A human intervention to reduce the sources or enhance the sinks of green\u00ad house gases.  AR5 WG2"
+  },
+  {
+    "Term": "Montreal and later given greater",
+    "Definition": "recognition in the 13th Session of the COP in 2007 at Bali and inclusion in the Bali Action Plan which called for \u2018policy approaches and positive incentives on issues relating to reducing emissions from deforestation and forest degradation in developing countries (REDD) and the role of conservation, sustainable management of forests and enhancement of forest carbon stock in developing countries\u2019.  AR5 SYR"
+  },
+  {
+    "Term": "Nationally Determined Contributions",
+    "Definition": "(NDCs)  A term used under the United Nations Change (UNFCCC) whereby a country that has joined the Paris Agreement outlines its plans for reducing its emissions. Some countries\u2019 NDCs also address how they will adapt to climate change impacts, and what support they need from, or will provide to, other countries to adopt low-carbon pathways and to build climate resilience. According to Article 4 paragraph 2 of the Paris Agreement, each Party shall prepare, communicate and maintain successive NDCs that it intends to achieve. In the lead up to M N M N  21st Conference of the Parties in Paris in 2015, countries submitted Intended Nationally Determined Contributions (INDCs). As countries join the Paris Agreement, unless they decide otherwise, this INDC becomes their first Nationally Determined Contribution(NDC).  SR1.5"
+  },
+  {
+    "Term": "Nations Framework Convention",
+    "Definition": "on Climate Change (UNFCCC) is an international treaty adopted in December 1997 in Kyoto, Japan, at the Third Session of the Conference of the Parties (COP3) to the UNFCCC. It contains legally binding commitments, in addition to those included in the UNFCCC. Countries included in Annex B of the Protocol (mostly OECD countries and countries with economies in transition) agreed to reduce their K I K  anthropogenic greenhouse gas (GHG) emissions by at least 5% below 1990 levels in the first commitment period (2008\u20132012). The Kyoto Protocol entered into force on 16 February 2005 and as of May 2018 had 192 Parties (191 States and the European Union).  SR1.5"
+  },
+  {
+    "Term": "Net Zero",
+    "Definition": "A balance between the amount of greenhouse gas emissions produced and the amount removed from the atmosphere."
+  },
+  {
+    "Term": "Net Zero Emissions",
+    "Definition": "Net zero emissions are achieved when anthropogenic emissions of greenhouse gases to the atmosphere are balanced by anthropogenic removals over a specified period.Where multiple greenhouse gases are involved, the quantification of net zero emissions depends on the climate metric chosen to compare emissions of different gases (such as global warming potential, global temperature change potential, and others, as well as the chosen time horizon).  SR1.5"
+  },
+  {
+    "Term": "Ocean Acidification",
+    "Definition": "Ocean acidification refers to a reduction in the pH of the ocean over an extended period, typically decades or longer, which is caused primarily by uptake of carbon dioxide (CO2) from the atmosphere, but can also be caused by other chemical additions or subtractions from the ocean."
+  },
+  {
+    "Term": "Paris Agreement",
+    "Definition": "UNFCCC was adopted on December2015 in Paris, France, at the 21st session of the Conference of the Parties (COP) to the UNFCCC. The agreement, adopted by 196 Parties to the UNFCCC, entered into force on 4 November 2016 and as of May 2018 had 195 Signatories and was ratified by 177 Parties. One of the goals of the Paris Agreement is \u2018Holding the increase in the global average temperature to well below 2\u00b0C above pre-industrial levels and pursuing efforts to limit the temperature increase to 1.5\u00b0C above pre-industrial levels\u2019, recognising that this would significantly reduce the risks and impacts of climate change. Additionally, the Agreement aims to strengthen the ability of countries to deal with the impacts of climate change.  SR1.5"
+  },
+  {
+    "Term": "Paris Agreement",
+    "Definition": "An international treaty adopted in 2015 to limit global warming to well below 2\u00b0C, preferably to 1.5\u00b0C."
+  },
+  {
+    "Term": "Particulate matter (PM)",
+    "Definition": "Solid particles or liquid droplets suspended or carried in the air."
+  },
+  {
+    "Term": "Parts per million (ppm)",
+    "Definition": "Number of parts of a chemical found in one million parts of a particular gas, liquid, or solid."
+  },
+  {
+    "Term": "Path Dependence",
+    "Definition": "The generic situation where decisions, events, or outcomes at one point in time constrain adaptation, mitigation, or other actions or options at a later point in time.  AR5 WG2 O O P P"
+  },
+  {
+    "Term": "Pathways",
+    "Definition": "The temporal evolution of natural and/ or human systems towards a future state. Pathway concepts range from sets of quantitative and qualitative scenarios or narratives of potential futures to solution oriented decision- making processes to achieve desirable societal goals. Pathway approaches typically focus on biophysical, techno- economic, and/or socio-behavioural trajectories and involve various dynamics, goals and actors across different scales.  SR1.5"
+  },
+  {
+    "Term": "Peri-Urban Areas",
+    "Definition": "Peri-urban areas are those parts of a city that appear to be quite rural but are in reality strongly linked functionally to the city in its daily activities.  SR1.5"
+  },
+  {
+    "Term": "Permafrost",
+    "Definition": "Permanently frozen ground found in polar regions that, when thawed, can release methane and CO\u2082."
+  },
+  {
+    "Term": "Photosynthesis",
+    "Definition": "Complex process that takes place in living green plant cells. Radiant energy from the sun is used to combine carbon dioxide and water to produce oxygen, carbohydrates (such as glucose), and other nutrient molecules."
+  },
+  {
+    "Term": "Poverty",
+    "Definition": "Poverty is a complex concept with several definitions stemming from different schools of thought. It can refer to material circumstances (such as need, pattern of deprivation, or limited resources), economic conditions (such as standard of living, inequality, or economic position), and/or social relationships (such as social class, dependency, exclusion, lack of basic security, or lack of entitlement).  AR5 WG2"
+  },
+  {
+    "Term": "Poverty Trap",
+    "Definition": "Poverty trap is understood differently across disciplines. In the social sciences, the concept, primarily employed at the individual, household, or community level, describes a situation in which escaping poverty becomes impossible due to unproductive or inflexible resources. A poverty trap can also be seen as a critical minimum asset threshold, below which families are unable to successfully educate their children, build up their productive assets, and get out of poverty. Extreme poverty is itself a poverty trap, since poor persons lack the means to participate meaningfully in society. In economics, the term poverty trap is often used at national scales, referring to a self-perpetuating condition where an economy, caught in a vicious cycle, suffers from persistent underdevelopment (Matsuyama, 2008). Many proposed models of poverty traps are found in the literature.  AR5 WG2"
+  },
+  {
+    "Term": "Projection",
+    "Definition": "A projection is a potential future evolution of a quantity or set of quantities, often computed with the aid of a model. Unlike predictions, projections are conditional on assumptions concerning, for example, future socioeconomic and technological developments that may or may not be realized.  AR5 WG2"
+  },
+  {
+    "Term": "Radiative Forcing",
+    "Definition": "The strength of drivers is quantified as Radiative Forcing (RF) in units watts per square meter (W/m2) as in previous IPCC assessments. RF is the change in energy flux caused by a driver and is calculated at the tropopause or at the top of the atmosphere.  AR5 SYR P R R"
+  },
+  {
+    "Term": "Recycling",
+    "Definition": "Collecting and reprocessing a resource so it can be used again. An example is collecting aluminum cans, melting them down, and using the aluminum to make new cans or other aluminum products."
+  },
+  {
+    "Term": "Reducing Emissions from Deforestation",
+    "Definition": "and Forest Degradation (REDD+)  An effort to create financial value for the carbon stored in forests, offering incentives for developing countries to reduce emissions from forested lands and invest in low carbon paths to sustainable development (SD). It is therefore a mechanism for mitigation that results from avoiding deforestation. REDD+ goes beyond reforestation and forest degradation and includes the role of conservation, sustainable management of forests and enhancement of forest carbon stocks. The concept was first introduced in 2005 in the 11th Session of the Conference of the Parties (COP) in"
+  },
+  {
+    "Term": "Reforestation",
+    "Definition": "Reestablishing a forest by planting trees or allowing the forest to regenerate naturally."
+  },
+  {
+    "Term": "Region",
+    "Definition": "A region is a territory characterized by specific geographical and climatological features. The climate of a region is affected by regional and local scale features like topography, land use characteristics and lakes, as well as remote influences from other regions.  AR5 WG1"
+  },
+  {
+    "Term": "Renewable energy",
+    "Definition": "Renewable energy is energy from sources that will renew themselves within our lifetime. Renewable energy sources include wind, sun, water, biomass (vegetation) and geothermal heat."
+  },
+  {
+    "Term": "Reporting and Verification for those",
+    "Definition": "countries that receive international support for their mitigation efforts.  AR5 SYR"
+  },
+  {
+    "Term": "Representative Concentration Pathways",
+    "Definition": "(RCPs)  Scenarios that include time series of emissions and concentrations of the full suite of greenhouse gases (GHGs) and aerosols and chemically active gases, as well as land use/land cover (Moss et al., 2008). The word representative signifies that each RCP provides only one of many possible scenarios that would lead to the specific radiative forcing characteristics. The term pathway emphasizes that not only the long-term concentration levels are of interest, but also the trajectory taken over time to reach that outcome (Moss et al., 2010).  AR5 SYR"
+  },
+  {
+    "Term": "Resilience",
+    "Definition": "The capacity of social, economic, and environmental systems to cope with a hazardous event or trend or disturbance, responding or reorganizing in ways that maintain their essential function, identity, and structure, while also maintaining the capacity for adaptation, learning, and transformation.  AR5 WG2"
+  },
+  {
+    "Term": "Risk",
+    "Definition": "The potential for consequenceswhere something of value is at stake and where the outcome is uncertain, recognizing the diversity of values. Risk is often represented as probability of occurrence of hazardous events or trends multiplied by the impacts if these events or trends occur. Risk results from the interaction of vulnerability, exposure, and hazard. In this report, the term risk is used primarily to refer to the risks of climate- change impacts.  AR5 WG2"
+  },
+  {
+    "Term": "Risk Assessment",
+    "Definition": "The qualitative and/or quantitative sci\u00ad entific estimation of risks.  AR5 WG2 R R"
+  },
+  {
+    "Term": "Risk Management",
+    "Definition": "Plans, actions, or policies to reduce the likelihood and/or consequences of risks or to respond to consequences.  AR5 WG2"
+  },
+  {
+    "Term": "Risk Perception",
+    "Definition": "The subjective judgment that peoplemake about the characteristics and se\u00ad verity of a risk.  AR5 WG2"
+  },
+  {
+    "Term": "Risk Transfer",
+    "Definition": "The process of formally or informally shifting the financial consequences of particular risks from one party to another whereby a household, community, enterprise, or state authority will obtain resources from the other party after a disaster occurs, in exchange for ongoing or compensatory social or financial benefits provided to that other party."
+  },
+  {
+    "Term": "Scenario",
+    "Definition": "A plausible description of how the future may develop based on a coherent and internally consistent set of assumptions about key driving forces (e.g., rate of technological change, prices) and relationships. Note that scenarios are neither predictions nor forecasts, but are useful to provide a view of the implications of developments and actions.  AR5 WG2"
+  },
+  {
+    "Term": "Sea Surface Temperature",
+    "Definition": "The sea surface temperature is the subsurface bulk temperature in the top few meters of the ocean, measured by ships, buoys, and drifters.  SR1.5"
+  },
+  {
+    "Term": "Sea-Level Change",
+    "Definition": "Sea level can change, both globally and locally (relative sea level change) due to (1) a change in ocean volume as a result of a change in the mass of water in the ocean, (2) changes in ocean volume as a result of changes in ocean water density, (3) changes in the shape of the ocean basins and changes in the Earth\u2019s gravitational and rotational fields, and (4) local subsidence or uplift of the land.  SR1.5"
+  },
+  {
+    "Term": "Sea-Level Rise",
+    "Definition": "The increase in global average sea level due to melting glaciers and thermal expansion of seawater as the planet warms."
+  },
+  {
+    "Term": "Sequestration",
+    "Definition": "The uptake (i.e., the addition of a substance of concern to a reservoir) of carbon containing substances, in particular carbon dioxide (CO2), in terrestrial or marine reservoirs."
+  },
+  {
+    "Term": "Sink",
+    "Definition": "Any process, activity or mechanism that removes a greenhouse gas (GHG), an aerosol or a precursor of a GHG or aerosol from the atmosphere.  AR5 SYR"
+  },
+  {
+    "Term": "Sinks (Carbon)",
+    "Definition": "Systems like forests and oceans that absorb more CO\u2082 than they emit."
+  },
+  {
+    "Term": "Smog",
+    "Definition": "Originally \u201csmoke\u201d and \u201cfog,\u201d it is now used to describe photochemical air pollution, which is a mixture of many chemicals, with ground-level ozone being the most abundant."
+  },
+  {
+    "Term": "Social Protection",
+    "Definition": "In the context of development aid and climate policy, social protection usually describes public and private initiatives that provide income or consumption transfers to the poor, protect the vulnerable against livelihood risks, and enhance the social status and rights of the marginalized, with the overall objective of reducing the economic and social vulnerability of poor, vulnerable, and marginalized groups.  AR5 WG2"
+  },
+  {
+    "Term": "Socioeconomic Scenario",
+    "Definition": "A scenario that describes a possible future in terms of population, gross domestic product, and other socioeconomic factors relevant to understanding the implications of climate change.  AR5 WG2"
+  },
+  {
+    "Term": "Solar Radiation Management (SRM)",
+    "Definition": "A type of geoengineering aimed at reflecting a small percentage of sunlight back into space to cool the planet."
+  },
+  {
+    "Term": "Solar Radiation Modification",
+    "Definition": "Solar radiation modification refers to the intentional modification of the Earth\u2019s shortwave radiative budget with the aim of reducing warming."
+  },
+  {
+    "Term": "SREX",
+    "Definition": "2030 Agenda for Sustainable Development  A UN resolution in September 2015 adopting a plan of action for people, planet and prosperity in a new global development framework anchored in 17 Sustainable Development Goals (UN, 2015).  AR5 WG2"
+  },
+  {
+    "Term": "Storm Surge",
+    "Definition": "The temporary increase, at a particular locality, in the height of the sea due to extreme meteorological conditions (low atmospheric pressure and/or strong winds). The storm surge is defined as being the excess above the level expected from the tidal variation alone at that time and place  AR5 SYR"
+  },
+  {
+    "Term": "Stressors",
+    "Definition": "Events and trends, often not climate- related, that have an important effect on the system exposed and can increase vulnerability to climate-related risk.  AR5 WG2"
+  },
+  {
+    "Term": "Sustainability",
+    "Definition": "The ability of a society, ecosystem, or any such ongoing system to continue functioning into the indefinite future without being forced into decline through exhaustion or overloading of key resources on which that system depends."
+  },
+  {
+    "Term": "Sustainable Development",
+    "Definition": "Development that meets the needs of the present without compromising the ability of future generations to meet their own needs."
+  },
+  {
+    "Term": "Technology transfer",
+    "Definition": "A broad set of processes covering the flows of know-how, experience and equipment for mitigating and adapting to climate change among different stakeholders"
+  },
+  {
+    "Term": "Thermal Expansion",
+    "Definition": "The increase in ocean volume as water warms, contributing to sea-level rise."
+  },
+  {
+    "Term": "Tipping Point",
+    "Definition": "A level of change in system properties beyond which a system reorganizes, often abruptly, and does not return to the initial state even if the drivers of the change are abated. For the climate system, it refers to a critical threshold T S T  when global or regional climate changes from one stable state to another stable state. The tipping point event may be irreversible.  AR5 SYR"
+  },
+  {
+    "Term": "Traditional Knowledge",
+    "Definition": "The knowledge, innovations, and practices of both indigenous and local communities around the world that are deeply grounded in history and experience. Traditional knowledge is dynamic and adapts to cultural and environmental change, and also incorporates other forms of knowledge and viewpoints. Traditional knowledge is generally transmitted orally from generation to generation. It is often used as a synonym for indigenous knowledge, local knowledge, or traditional ecological knowledge.  AR5 WG2"
+  },
+  {
+    "Term": "Transformation",
+    "Definition": "A change in the fundamental attributes of natural and human systems.  AR5 WG2"
+  },
+  {
+    "Term": "UNFCCC (United Nations Framework Convention on Climate Change)",
+    "Definition": "An international treaty established in 1992 to combat climate change and its impacts."
+  },
+  {
+    "Term": "Urban heat island effect",
+    "Definition": "The increased temperature of air in urban areas compared to the surrounding suburban and rural areas, due to the heat retaining characteristics of urban building materials, the lack of vegetation, and other factors."
+  },
+  {
+    "Term": "Vulnerability",
+    "Definition": "The propensity or predisposition to be adversely affected. Vulnerability en\u00ad compasses a variety of concepts and elements including sensitivity or sus\u00ad ceptibility to harm and lack of capacity to cope and adapt.  AR5 WG2"
+  },
+  {
+    "Term": "Waste management",
+    "Definition": "The collection, transportation, processing, recycling or disposal of waste materials. The term usually relates to materials produced by human activity, and is generally undertaken to reduce their effect on health, the environment or aesthetics."
+  },
+  {
+    "Term": "Water vapor",
+    "Definition": "The most abundant greenhouse gas; it is the water present in the atmosphere in gaseous form. Water vapor is an important part of the natural greenhouse effect. While humans are not significantly increasing its concentration, it contributes to the enhanced greenhouse effect because the warming influence of greenhouse gases leads to increased water vapor through evaporation. Water vapor also contributes to the natural greenhouse effect."
+  },
+  {
+    "Term": "Weather",
+    "Definition": "The state of the atmosphere with re\u00ad gard to temperature, cloudiness, rain\u00ad fall, wind and other meteorological conditions. It is not the same as climate which is the average weather over a much longer period."
+  },
+  {
+    "Term": "Wind energy",
+    "Definition": "Kinetic energy present in wind motion that can be converted to mechanical energy for driving pumps, mills, and electric power generators."
+  },
+  {
+    "Term": "Zero waste",
+    "Definition": "A philosophy that encourages the redesign of resource life cycles so that all products are reused and no trash is sent to landfills or incinerators. The process recommended is one similar to the way that resources are reused in nature."
+  },
+  {
+    "Term": "Zero-Carbon",
+    "Definition": "No net release of carbon dioxide."
+  }
+];
+        
+        // DOM elements
+        const container = document.getElementById('terms-container');
+        const searchBox = document.getElementById('search-box');
+        const letterFilter = document.getElementById('letter-filter');
+        const randomBtn = document.getElementById('random-btn');
+        const stats = document.getElementById('stats');
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createLetterFilters();
+            renderTerms(glossary);
+            setupEventListeners();
+        });
+        
+        // Create letter filter buttons
+        function createLetterFilters() {
+            const letters = new Set();
+            glossary.forEach(term => letters.add(term.Term[0].toUpperCase()));
+            const sortedLetters = Array.from(letters).sort();
+            
+            sortedLetters.forEach(letter => {
+                const btn = document.createElement('button');
+                btn.className = 'letter-btn';
+                btn.textContent = letter;
+                btn.onclick = () => filterByLetter(letter);
+                letterFilter.appendChild(btn);
+            });
+        }
+        
+        // Render terms to the page
+        function renderTerms(terms) {
+            container.innerHTML = '';
+            
+            if (terms.length === 0) {
+                container.innerHTML = '<div class="no-results">No matching terms found. Try a different search.</div>';
+                return;
+            }
+            
+            terms.forEach(term => {
+                const card = document.createElement('div');
+                card.className = 'term-card';
+                card.innerHTML = `
+                    <div class="term-title">${term.Term}</div>
+                    <div class="term-definition">${term.Definition}</div>
+                `;
+                container.appendChild(card);
+            });
+            
+            updateStats(terms.length);
+        }
+        
+        // Filter terms by search query
+        function searchTerms() {
+            const query = searchBox.value.toLowerCase();
+            
+            // Reset letter buttons
+            document.querySelectorAll('.letter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            if (!query) {
+                renderTerms(glossary);
+                return;
+            }
+            
+            const filteredTerms = glossary.filter(term => 
+                term.Term.toLowerCase().includes(query) || 
+                term.Definition.toLowerCase().includes(query)
+            );
+            
+            renderTerms(filteredTerms);
+        }
+        
+        // Filter by starting letter
+        function filterByLetter(letter) {
+            // Clear search box
+            searchBox.value = '';
+            
+            const filteredTerms = glossary.filter(term => 
+                term.Term.toUpperCase().startsWith(letter)
+            );
+            
+            renderTerms(filteredTerms);
+            
+            // Highlight the active letter button
+            document.querySelectorAll('.letter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === letter) btn.classList.add('active');
+            });
+        }
+        
+        // Show random term
+        function showRandomTerm() {
+            // Clear search and letter filters
+            searchBox.value = '';
+            document.querySelectorAll('.letter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const randomTerm = [glossary[Math.floor(Math.random() * glossary.length)]];
+            renderTerms(randomTerm);
+        }
+        
+        // Update stats display
+        function updateStats(count) {
+            if (count === glossary.length) {
+                stats.textContent = `Showing all ${count} terms`;
+            } else if (count === 1) {
+                stats.textContent = `Showing 1 term`;
+            } else {
+                stats.textContent = `Showing ${count} of ${glossary.length} terms`;
+            }
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            searchBox.addEventListener('input', searchTerms);
+            randomBtn.addEventListener('click', showRandomTerm);
+            
+            // Add keyboard shortcut for search (Ctrl+K or Cmd+K)
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchBox.focus();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+        
